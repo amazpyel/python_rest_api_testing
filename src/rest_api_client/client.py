@@ -1,8 +1,12 @@
 import os
 import httpx
+from httpx import HTTPStatusError
 
 from src.models import AreasResponse
 
+
+class RestApiError(Exception):
+    pass
 
 class RestApiClient:
     BASE_URL = "https://api.football-data.org/v4"
@@ -19,10 +23,15 @@ class RestApiClient:
         )
 
     def get_areas(self):
-        response = self._client.get("/areas")
-        response.raise_for_status()
-
+        try:
+            response = self._client.get("/areas")
+            response.raise_for_status()
+        except HTTPStatusError as exc:
+            raise RestApiError(
+                f"REST API request failed: {exc.response.status_code} - {exc.response.text}"
+            ) from exc
         return AreasResponse.model_validate(response.json())
 
     def close(self):
         self._client.close()
+
