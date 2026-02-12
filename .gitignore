@@ -4,9 +4,8 @@
 .idea/
 
 # Python cache
-tests/__pycache__/
-tests/rest_api/__pycache__/
-src/rest_api_client/__pycache__
+__pycache__/
+*.py[cod]
 
 # poetry local configuration
 poetry.toml
