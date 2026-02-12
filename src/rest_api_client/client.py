@@ -1,6 +1,8 @@
 import os
 import httpx
 
+from src.models import AreasResponse
+
 
 class RestApiClient:
     BASE_URL = "https://api.football-data.org/v4"
@@ -19,7 +21,8 @@ class RestApiClient:
     def get_areas(self):
         response = self._client.get("/areas")
         response.raise_for_status()
-        return response.json()
+
+        return AreasResponse.model_validate(response.json())
 
     def close(self):
         self._client.close()

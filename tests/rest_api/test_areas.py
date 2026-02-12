@@ -2,13 +2,17 @@ import pytest
 
 
 @pytest.mark.smoke
-def test_get_all_areas_returns_consistent_payload(rest_api_client):
-    areas = rest_api_client.get_areas()
+def test_get_all_areas(rest_api_client):
+    areas_response = rest_api_client.get_areas()
 
-    assert isinstance(areas, dict), "Response must be a dictionary"
+    assert areas_response.count == len(areas_response.areas), (
+        "Count does not match number of returned areas"
+    )
 
-    count = areas.get("count")
-    area_list = areas.get("areas")
+    assert areas_response.areas, "Areas list is empty"
 
-    assert isinstance(area_list, list), "'areas' must be a list"
-    assert count == len(area_list), "Count mismatch with actual items"
+    first_area = areas_response.areas[0]
+
+    assert first_area.id > 0
+    assert len(first_area.countryCode) == 3
+    assert first_area.name

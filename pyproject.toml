@@ -10,6 +10,7 @@ packages = [{ include = "api_client", from = "src" }]
 [tool.poetry.dependencies]
 python = ">=3.11,<3.15"
 httpx = "0.28.1"
+pydantic = "^2.12.5"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "9.0.2"
