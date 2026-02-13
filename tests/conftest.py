@@ -1,3 +1,6 @@
+import logging
+import os
+
 import pytest
 
 from src.rest_api_client.football_api.client import FootballApiClient
@@ -13,3 +16,9 @@ def football_api_client():
 def gorest_client():
     with GoRestClient() as client:
         yield client
+
+def pytest_configure():
+    logging.basicConfig(
+        level=os.getenv("LOG_LEVEL", "WARNING").upper(),
+        format="%(asctime)s | %(levelname)s | %(name)s | %(message)s"
+    )

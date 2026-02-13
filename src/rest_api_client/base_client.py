@@ -1,3 +1,4 @@
+import logging
 import os
 
 import httpx
@@ -16,10 +17,15 @@ class BaseRestApiClient:
         backoff_factor: float = 0.5
     ):
         timeout_value = timeout or float(os.getenv("API_TIMEOUT", 10.0))
+        self._logger = logging.getLogger(self.__class__.__name__)
         self._client = httpx.Client(
-            base_url = base_url,
-            headers = headers,
-            timeout = timeout_value
+            base_url=base_url,
+            headers=headers,
+            timeout=timeout_value,
+            event_hooks={
+                "request": [self._log_request],
+                "response": [self._log_response],
+            }
         )
 
         self._max_retries = max_retries
@@ -39,3 +45,14 @@ class BaseRestApiClient:
 
     def close(self):
         self._client.close()
+
+    def _log_request(self, request: httpx.Request):
+        self._logger.info(
+            f"{request.method} {request.url}"
+        )
+
+    def _log_response(self, response: httpx.Response):
+        self._logger.info(
+            f"{response.request.method} {response.request.url} "
+            f"-> {response.status_code}"
+        )
