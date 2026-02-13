@@ -1,8 +1,15 @@
 import pytest
-from src.rest_api_client.client import RestApiClient
+
+from src.rest_api_client.football_api.client import FootballApiClient
+from src.rest_api_client.go_rest_api.client import GoRestClient
+
 
 @pytest.fixture
-def rest_api_client():
-    client = RestApiClient()
-    yield client
-    client.close()
+def football_api_client():
+    with FootballApiClient() as client:
+        yield client
+
+@pytest.fixture
+def gorest_client():
+    with GoRestClient() as client:
+        yield client

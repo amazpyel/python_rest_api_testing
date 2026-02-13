@@ -2,8 +2,8 @@ import pytest
 
 
 @pytest.mark.smoke
-def test_get_all_areas(rest_api_client):
-    areas_response = rest_api_client.get_areas()
+def test_get_all_areas(football_api_client):
+    areas_response = football_api_client.get_areas()
 
     assert areas_response.count == len(areas_response.areas), (
         "Count does not match number of returned areas"
