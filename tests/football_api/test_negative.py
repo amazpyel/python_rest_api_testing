@@ -3,7 +3,7 @@ import pytest
 from src.rest_api_client.exceptions import RestApiError
 from src.rest_api_client.football_api.client import FootballApiClient
 
-
+@pytest.mark.negative
 def test_invalid_football_api_token_returns_error(monkeypatch):
     monkeypatch.setenv("FOOTBALL_DATA_TOKEN", "invalid_token")
 

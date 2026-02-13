@@ -25,5 +25,8 @@ build-backend = "poetry.core.masonry.api"
 testpaths = ["tests"]
 addopts = "--strict-markers -ra"
 markers = [
-    "smoke: run smoke tests"
+    "smoke: run smoke tests",
+    "destructive: modified external state",
+    "negative: negative test cases",
+    "end2end: end-to-end test cases"
 ]
