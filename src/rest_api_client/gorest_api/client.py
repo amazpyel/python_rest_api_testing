@@ -1,7 +1,7 @@
 import os
 
 from src.rest_api_client.base_client import BaseRestApiClient
-from src.rest_api_client.go_rest_api.models import UserCreateRequest, UserResponse, UserUpdateRequest
+from src.rest_api_client.gorest_api.models import UserCreateRequest, UserResponse, UserUpdateRequest
 from src.rest_api_client.http import HttpMethod
 
 

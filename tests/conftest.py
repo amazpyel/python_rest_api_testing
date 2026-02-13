@@ -1,7 +1,7 @@
 import pytest
 
 from src.rest_api_client.football_api.client import FootballApiClient
-from src.rest_api_client.go_rest_api.client import GoRestClient
+from src.rest_api_client.gorest_api.client import GoRestClient
 
 
 @pytest.fixture

@@ -1,7 +1,7 @@
 import pytest
 
 from src.rest_api_client.exceptions import RestApiError
-from src.rest_api_client.go_rest_api.client import GoRestClient
+from src.rest_api_client.gorest_api.client import GoRestClient
 
 
 def test_invalid_gorest_token_returns_error(monkeypatch):
