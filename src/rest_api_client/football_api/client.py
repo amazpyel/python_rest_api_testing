@@ -1,7 +1,7 @@
 import os
-from src.rest_api_client.base_client import BaseRestApiClient
-from src.rest_api_client.football_api.models import AreasResponse
-from src.rest_api_client.http import HttpMethod
+from rest_api_client.base_client import BaseRestApiClient
+from rest_api_client.football_api.models import AreasResponse
+from rest_api_client.http import HttpMethod
 
 
 class FootballApiClient(BaseRestApiClient):

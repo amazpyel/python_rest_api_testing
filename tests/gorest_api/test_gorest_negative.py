@@ -1,7 +1,7 @@
 import pytest
 
-from src.rest_api_client.exceptions import RestApiError
-from src.rest_api_client.gorest_api.client import GoRestClient
+from rest_api_client.exceptions import RestApiError
+from rest_api_client.gorest_api.client import GoRestClient
 from tests.factories.user_factory import UserFactory
 
 

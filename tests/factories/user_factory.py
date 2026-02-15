@@ -1,7 +1,6 @@
 from enum import Enum
 
 from faker import Faker
-from pydantic import EmailStr
 
 from src.rest_api_client.gorest_api.models import UserCreateRequest
 

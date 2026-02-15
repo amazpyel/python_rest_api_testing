@@ -9,3 +9,6 @@ __pycache__/
 
 # poetry local configuration
 poetry.toml
+
+# Allure
+allure-results

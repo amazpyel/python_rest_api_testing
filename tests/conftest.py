@@ -3,8 +3,8 @@ import os
 
 import pytest
 
-from src.rest_api_client.football_api.client import FootballApiClient
-from src.rest_api_client.gorest_api.client import GoRestClient
+from rest_api_client.football_api.client import FootballApiClient
+from rest_api_client.gorest_api.client import GoRestClient
 
 
 @pytest.fixture

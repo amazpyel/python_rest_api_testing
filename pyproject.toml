@@ -4,7 +4,9 @@ version = "0.1.0"
 description = "Test automation framework for REST API in Python"
 authors = ["Oleksandr Pylkevych <olek_on_github@sent.com>"]
 readme = "README.md"
-packages = [{ include = "api_client", from = "src" }]
+packages = [
+    { include = "rest_api_client", from = "src" }
+]
 
 
 [tool.poetry.dependencies]
@@ -13,6 +15,7 @@ httpx = "0.28.1"
 pydantic = "^2.12.5"
 faker = "^40.4.0"
 email-validator = "^2.3.0"
+allure-pytest = "^2.15.3"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "9.0.2"
