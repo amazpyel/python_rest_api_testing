@@ -1,7 +1,5 @@
-# ---- Base image ----
 FROM python:3.14-slim
 
-# ---- Environment ----
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 ENV POETRY_VERSION=1.8.3
@@ -12,20 +10,19 @@ RUN pip install "poetry==$POETRY_VERSION"
 # ---- Workdir ----
 WORKDIR /app
 
-# ---- Copy project files ----
+# Copy dependency files first (layer caching)
 COPY pyproject.toml poetry.lock* /app/
 
-# ---- Install dependencies ----
-RUN poetry config virtualenvs.create false \
-    && poetry install --no-interaction --no-ansi --no-root
+# Disable virtualenv inside container
+RUN poetry config virtualenvs.create false
 
-# ---- Copy source code ----
-COPY src /app/src
-COPY tests /app/tests
-COPY performance /app/performance
-
-# ---- Install project package ----
+# Install dependencies (without project yet)
 RUN poetry install --no-interaction --no-ansi
 
-# ---- Default command ----
+# Copy full project
+COPY . /app
+
+# Install project package itself
+RUN poetry install --no-interaction --no-ansi
+
 CMD ["pytest", "-v"]
