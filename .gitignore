@@ -12,3 +12,6 @@ poetry.toml
 
 # Allure
 allure-results
+
+# env file for docker
+.env
