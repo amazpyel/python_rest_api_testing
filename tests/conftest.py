@@ -45,7 +45,7 @@ def pytest_sessionstart(session):
         f.write(f"OS={platform.system()} {platform.release()}\n")
         f.write(f"Football API Base URL={football_base}\n")
         f.write(f"GoRest API Base URL={gorest_base}\n")
-        f.write(f"Test Environment={os.getenv('TEST_ENV', 'local')}\n")
+        f.write(f"Test Environment={os.getenv('ENV', 'local')}\n")
 
     # Executor info - controls report name in Allure
     executor_file = results_dir / "executor.json"
