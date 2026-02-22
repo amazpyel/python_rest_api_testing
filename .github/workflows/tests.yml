@@ -34,6 +34,7 @@ jobs:
         continue-on-error: true
         env:
           CI: "true"
+          TEST_ENV: "testing"
           GOREST_TOKEN: ${{ secrets.GOREST_TOKEN }}
           FOOTBALL_DATA_TOKEN: ${{ secrets.FOOTBALL_DATA_TOKEN }}
           REPORT_NAME: "REST API Test Suite"

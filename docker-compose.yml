@@ -6,6 +6,7 @@ services:
     environment:
       GOREST_TOKEN: ${GOREST_TOKEN}
       FOOTBALL_DATA_TOKEN: ${FOOTBALL_DATA_TOKEN}
+      TEST_ENV: ${TEST_ENV:-testing}
       REPORT_NAME: ${REPORT_NAME:-REST API Test Suite}
       BUILD_NUMBER: ${BUILD_NUMBER:-1}
       BUILD_NAME: ${BUILD_NAME:-}

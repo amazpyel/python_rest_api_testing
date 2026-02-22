@@ -40,12 +40,20 @@ def pytest_sessionstart(session):
     football_base = os.getenv("FOOTBALL_BASE_URL", "https://api.football-data.org/v4")
     gorest_base = os.getenv("GOREST_BASE_URL", "https://gorest.co.in/public/v2")
 
+    # Detect execution location (CI or local)
+    is_ci = os.getenv("CI") == "true"
+    execution_location = "CI/CD (GitHub Actions)" if is_ci else "Local"
+
+    # Get test environment (dev, staging, prod, etc.)
+    test_env = os.getenv("TEST_ENV", "production")
+
     with environment_file.open("w", encoding="utf-8") as f:
         f.write(f"Python Version={sys.version.split()[0]}\n")
         f.write(f"OS={platform.system()} {platform.release()}\n")
+        f.write(f"Execution Location={execution_location}\n")
+        f.write(f"Test Environment={test_env}\n")
         f.write(f"Football API Base URL={football_base}\n")
         f.write(f"GoRest API Base URL={gorest_base}\n")
-        f.write(f"Test Environment={os.getenv('TEST_ENV', 'local')}\n")
 
     # Executor info - controls report name in Allure
     executor_file = results_dir / "executor.json"
