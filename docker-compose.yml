@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
 
   test:
@@ -8,6 +6,12 @@ services:
     environment:
       GOREST_TOKEN: ${GOREST_TOKEN}
       FOOTBALL_DATA_TOKEN: ${FOOTBALL_DATA_TOKEN}
+      REPORT_NAME: ${REPORT_NAME:-REST API Test Suite}
+      BUILD_NUMBER: ${BUILD_NUMBER:-1}
+      BUILD_NAME: ${BUILD_NAME:-}
+      BUILD_URL: ${BUILD_URL:-}
+      EXECUTOR_NAME: ${EXECUTOR_NAME:-pytest}
+      EXECUTOR_TYPE: ${EXECUTOR_TYPE:-pytest}
     volumes:
       - ./allure-results:/app/allure-results
     command:  >
@@ -30,11 +34,9 @@ services:
     ports:
       - "5050:5050"
     restart: unless-stopped
-    depends_on:
-      - test
     environment:
-      CHECK_RESULTS_EVERY_SECONDS: 3
+      CHECK_RESULTS_EVERY_SECONDS: 1
       KEEP_HISTORY: 1
     volumes:
-      - ./allure-results:/app/allure-results
-      - ./allure-report:/app/default-reports
+      - ${PWD}/allure-results:/app/allure-results
+      - ${PWD}/allure-reports:/app/default-reports

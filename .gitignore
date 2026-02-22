@@ -11,7 +11,9 @@ __pycache__/
 poetry.toml
 
 # Allure
-allure-results
+allure-results/
+allure-reports/
+.allure/
 
 # env file for docker
 .env
