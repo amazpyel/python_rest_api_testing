@@ -29,31 +29,9 @@ jobs:
           poetry config virtualenvs.create false
           poetry install --no-interaction --no-ansi
 
-      - name: Debug - Test GoRest API Access
-        env:
-          GOREST_TOKEN: ${{ secrets.GOREST_TOKEN }}
-        run: |
-          echo "Testing GoRest API from GitHub Actions..."
-          echo "Our IP address:"
-          curl -s https://api.ipify.org
-          echo ""
-          echo ""
-
-          echo "Testing READ request (GET /users):"
-          curl -i -H "Authorization: Bearer $GOREST_TOKEN" \
-            https://gorest.co.in/public/v2/users?per_page=1
-          echo ""
-          echo ""
-
-          echo "Testing WRITE request (POST /users):"
-          curl -i -X POST \
-            -H "Authorization: Bearer $GOREST_TOKEN" \
-            -H "Content-Type: application/json" \
-            -d '{"name":"Test User","email":"test'$(date +%s)'@example.com","gender":"male","status":"active"}' \
-            https://gorest.co.in/public/v2/users
-
       - name: Run tests
         env:
+          CI: "true"
           GOREST_TOKEN: ${{ secrets.GOREST_TOKEN }}
           FOOTBALL_DATA_TOKEN: ${{ secrets.FOOTBALL_DATA_TOKEN }}
           REPORT_NAME: "REST API Test Suite"
@@ -62,7 +40,7 @@ jobs:
           EXECUTOR_NAME: "GitHub Actions"
           EXECUTOR_TYPE: "github"
         run: |
-          pytest --alluredir=allure-results
+          pytest --alluredir=allure-results -v
 
       - name: Install Allure
         run: |

@@ -1,4 +1,5 @@
 import allure
+import os
 import pytest
 
 from rest_api_client.gorest_api.models import UserUpdateRequest
@@ -7,6 +8,10 @@ from tests.factories.user_factory import UserFactory
 
 @pytest.mark.end2end
 @pytest.mark.destructive
+@pytest.mark.skipif(
+    os.getenv("CI") == "true",
+    reason="GoRest blocks CI/CD environments (CloudFlare protection)"
+)
 @allure.feature("User Management")
 @allure.story("CRUD workflow")
 @allure.severity(allure.severity_level.CRITICAL)
