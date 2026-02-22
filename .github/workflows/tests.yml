@@ -54,9 +54,26 @@ jobs:
           sudo mv allure-2.27.0 /opt/allure
           sudo ln -s /opt/allure/bin/allure /usr/bin/allure
 
+      - name: Get Allure history from gh-pages
+        continue-on-error: true
+        run: |
+          echo "Fetching history from gh-pages branch..."
+          git fetch origin gh-pages --depth=1
+          git checkout origin/gh-pages -- history/ || echo "No history folder found in gh-pages"
+
+          if [ -d "history" ]; then
+            echo "Copying history to allure-results..."
+            cp -r history allure-results/
+            echo "History copied successfully"
+            ls -la allure-results/history/
+          else
+            echo "No previous history found, this will be the first report"
+          fi
+
       - name: Generate Allure report
         run: |
           allure generate allure-results --clean -o allure-report
+          echo "Report generated successfully"
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
