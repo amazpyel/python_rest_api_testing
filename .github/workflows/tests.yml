@@ -39,6 +39,9 @@ jobs:
             exit 1
           else
             echo "✓ GOREST_TOKEN is set (length: ${#GOREST_TOKEN} chars)"
+            echo "  First 4 chars: ${GOREST_TOKEN:0:4}... Last 4 chars: ...${GOREST_TOKEN: -4}"
+            # Check for hidden characters
+            echo "$GOREST_TOKEN" | od -c | head -1
           fi
 
           if [ -z "$FOOTBALL_DATA_TOKEN" ]; then
@@ -46,6 +49,7 @@ jobs:
             exit 1
           else
             echo "✓ FOOTBALL_DATA_TOKEN is set (length: ${#FOOTBALL_DATA_TOKEN} chars)"
+            echo "  First 4 chars: ${FOOTBALL_DATA_TOKEN:0:4}... Last 4 chars: ...${FOOTBALL_DATA_TOKEN: -4}"
           fi
 
       - name: Run tests
