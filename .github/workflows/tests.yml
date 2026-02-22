@@ -29,28 +29,28 @@ jobs:
           poetry config virtualenvs.create false
           poetry install --no-interaction --no-ansi
 
-      - name: Debug - Verify secrets are set
+      - name: Debug - Test GoRest API Access
         env:
           GOREST_TOKEN: ${{ secrets.GOREST_TOKEN }}
-          FOOTBALL_DATA_TOKEN: ${{ secrets.FOOTBALL_DATA_TOKEN }}
         run: |
-          if [ -z "$GOREST_TOKEN" ]; then
-            echo "ERROR: GOREST_TOKEN is not set!"
-            exit 1
-          else
-            echo "✓ GOREST_TOKEN is set (length: ${#GOREST_TOKEN} chars)"
-            echo "  First 4 chars: ${GOREST_TOKEN:0:4}... Last 4 chars: ...${GOREST_TOKEN: -4}"
-            # Check for hidden characters
-            echo "$GOREST_TOKEN" | od -c | head -1
-          fi
+          echo "Testing GoRest API from GitHub Actions..."
+          echo "Our IP address:"
+          curl -s https://api.ipify.org
+          echo ""
+          echo ""
 
-          if [ -z "$FOOTBALL_DATA_TOKEN" ]; then
-            echo "ERROR: FOOTBALL_DATA_TOKEN is not set!"
-            exit 1
-          else
-            echo "✓ FOOTBALL_DATA_TOKEN is set (length: ${#FOOTBALL_DATA_TOKEN} chars)"
-            echo "  First 4 chars: ${FOOTBALL_DATA_TOKEN:0:4}... Last 4 chars: ...${FOOTBALL_DATA_TOKEN: -4}"
-          fi
+          echo "Testing READ request (GET /users):"
+          curl -i -H "Authorization: Bearer $GOREST_TOKEN" \
+            https://gorest.co.in/public/v2/users?per_page=1
+          echo ""
+          echo ""
+
+          echo "Testing WRITE request (POST /users):"
+          curl -i -X POST \
+            -H "Authorization: Bearer $GOREST_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d '{"name":"Test User","email":"test'$(date +%s)'@example.com","gender":"male","status":"active"}' \
+            https://gorest.co.in/public/v2/users
 
       - name: Run tests
         env:
