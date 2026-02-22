@@ -1,0 +1,6 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"passed","Sun Feb 22 18:57:04 UTC 2026","Sun Feb 22 18:57:05 UTC 2026","147","tests.gorest_api","test_gorest_negative","","","","test_invalid_gorest_token_returns_error",""
+"failed","Sun Feb 22 18:57:04 UTC 2026","Sun Feb 22 18:57:04 UTC 2026","888","tests.football_api","test_football_negative","","","","test_invalid_football_api_token_returns_error",""
+"passed","Sun Feb 22 18:57:02 UTC 2026","Sun Feb 22 18:57:04 UTC 2026","1123","tests.football_api","test_areas","","","","test_get_all_areas",""
+"skipped","Sun Feb 22 18:57:04 UTC 2026","Sun Feb 22 18:57:04 UTC 2026","0","tests.gorest_api","test_end_to_end","","","","test_user_crud_workflow",""
+"skipped","Sun Feb 22 18:57:05 UTC 2026","Sun Feb 22 18:57:05 UTC 2026","0","tests.gorest_api","test_gorest_negative","","","","test_deleting_user_twice_raises_error",""

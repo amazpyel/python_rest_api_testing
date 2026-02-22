@@ -1,0 +1,1 @@
+{"total":2,"items":[{"uid":"52a5f137a2ab959bdf373e0cddeab6ba","name":"tests.football_api","statistic":{"failed":1,"broken":0,"skipped":0,"passed":1,"unknown":0,"total":2}},{"uid":"cb97b98fc3719e20aa158e29a07986c5","name":"tests.gorest_api","statistic":{"failed":0,"broken":0,"skipped":2,"passed":1,"unknown":0,"total":3}}]}
