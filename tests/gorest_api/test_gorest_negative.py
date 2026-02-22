@@ -1,3 +1,5 @@
+import os
+
 import allure
 import pytest
 
@@ -9,6 +11,10 @@ from tests.factories.user_factory import UserFactory
 @allure.story("Invalid GoRest token")
 @allure.severity(allure.severity_level.CRITICAL)
 @pytest.mark.negative
+@pytest.mark.skipif(
+    os.getenv("CI") == "true",
+    reason="GoRest blocks CI/CD environments (CloudFlare protection)"
+)
 def test_invalid_gorest_token_returns_error(monkeypatch):
 
     with allure.step("Override GOREST_TOKEN with invalid value"):
