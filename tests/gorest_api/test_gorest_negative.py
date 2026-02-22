@@ -11,10 +11,6 @@ from tests.factories.user_factory import UserFactory
 @allure.story("Invalid GoRest token")
 @allure.severity(allure.severity_level.CRITICAL)
 @pytest.mark.negative
-@pytest.mark.skipif(
-    os.getenv("CI") == "true",
-    reason="GoRest blocks CI/CD environments (CloudFlare protection)"
-)
 def test_invalid_gorest_token_returns_error(monkeypatch):
 
     with allure.step("Override GOREST_TOKEN with invalid value"):
@@ -36,6 +32,10 @@ def test_invalid_gorest_token_returns_error(monkeypatch):
 @allure.severity(allure.severity_level.NORMAL)
 @pytest.mark.negative
 @pytest.mark.destructive
+@pytest.mark.skipif(
+    os.getenv("CI") == "true",
+    reason="GoRest blocks CI/CD environments (CloudFlare protection)"
+)
 def test_deleting_user_twice_raises_error(gorest_client):
 
     with allure.step("Create user"):
