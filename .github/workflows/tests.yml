@@ -33,6 +33,11 @@ jobs:
         env:
           GOREST_TOKEN: ${{ secrets.GOREST_TOKEN }}
           FOOTBALL_DATA_TOKEN: ${{ secrets.FOOTBALL_DATA_TOKEN }}
+          REPORT_NAME: "REST API Test Suite"
+          BUILD_NUMBER: ${{ github.run_number }}
+          BUILD_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          EXECUTOR_NAME: "GitHub Actions"
+          EXECUTOR_TYPE: "github"
         run: |
           pytest --alluredir=allure-results
 
