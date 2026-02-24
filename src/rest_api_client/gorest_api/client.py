@@ -4,6 +4,8 @@ from rest_api_client.base_client import BaseRestApiClient
 from rest_api_client.gorest_api.models import UserCreateRequest, UserResponse, UserUpdateRequest
 from rest_api_client.http import HttpMethod
 
+_DEFAULT_BASE_URL = "https://gorest.co.in/public/v2"
+
 
 class GoRestClient(BaseRestApiClient):
     def __init__(self):
@@ -12,7 +14,7 @@ class GoRestClient(BaseRestApiClient):
             raise RuntimeError("GOREST_TOKEN is not set")
 
         super().__init__(
-            base_url="https://gorest.co.in/public/v2",
+            base_url=os.getenv("GOREST_BASE_URL", _DEFAULT_BASE_URL),
             headers={"Authorization": f"Bearer {token}"},
         )
 
