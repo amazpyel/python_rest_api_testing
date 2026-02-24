@@ -43,7 +43,7 @@ Choose one of the following setups:
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
+git clone https://github.com/amazpyel/python_rest_api_testing
 cd python_rest_api_testing
 ```
 
