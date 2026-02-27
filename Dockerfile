@@ -2,27 +2,24 @@ FROM python:3.14-slim
 
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
-ENV POETRY_VERSION=1.8.3
+ENV UV_PROJECT_ENVIRONMENT=/app/.venv
 
-# ---- Install Poetry ----
-RUN pip install "poetry==$POETRY_VERSION"
+# ---- Install uv ----
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
 
 # ---- Workdir ----
 WORKDIR /app
 
 # Copy dependency files first (layer caching)
-COPY pyproject.toml poetry.lock* /app/
-
-# Disable virtualenv inside container
-RUN poetry config virtualenvs.create false
+COPY pyproject.toml uv.lock /app/
 
 # Install dependencies (without project yet)
-RUN poetry install --no-root --no-interaction --no-ansi
+RUN uv sync --frozen --no-install-project
 
 # Copy full project
 COPY . /app
 
 # Install project package itself
-RUN poetry install --no-interaction --no-ansi
+RUN uv sync --frozen
 
-CMD ["pytest", "-v"]
+CMD ["uv", "run", "pytest", "-v"]

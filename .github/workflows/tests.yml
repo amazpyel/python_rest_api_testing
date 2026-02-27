@@ -21,13 +21,13 @@ jobs:
         with:
           python-version: "3.14"
 
-      - name: Install Poetry
-        run: pip install poetry
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
 
       - name: Install dependencies
-        run: |
-          poetry config virtualenvs.create false
-          poetry install --no-interaction --no-ansi
+        run: uv sync --frozen
 
       - name: Run tests
         id: tests
@@ -43,7 +43,7 @@ jobs:
           EXECUTOR_NAME: "GitHub Actions"
           EXECUTOR_TYPE: "github"
         run: |
-          pytest --alluredir=allure-results -v
+          uv run pytest --alluredir=allure-results -v
 
       - name: Install Allure
         run: |

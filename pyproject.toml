@@ -1,29 +1,44 @@
-[tool.poetry]
+[project]
 name = "python-rest-api-tests"
 version = "0.1.0"
 description = "Test automation framework for REST API in Python"
-authors = ["Oleksandr Pylkevych <olek_on_github@sent.com>"]
+authors = [{ name = "Oleksandr Pylkevych", email = "olek_on_github@sent.com" }]
+requires-python = ">=3.11,<3.15"
 readme = "README.md"
-packages = [
-    { include = "rest_api_client", from = "src" }
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+]
+dependencies = [
+    "httpx==0.28.1",
+    "pydantic>=2.12.5,<3",
+    "faker>=40.4.0,<41",
+    "email-validator>=2.3.0,<3",
+    "allure-pytest>=2.15.3,<3",
+    "locust>=2.43.3,<3",
 ]
 
+[dependency-groups]
+dev = ["pytest==9.0.2"]
 
-[tool.poetry.dependencies]
-python = ">=3.11,<3.15"
-httpx = "0.28.1"
-pydantic = "^2.12.5"
-faker = "^40.4.0"
-email-validator = "^2.3.0"
-allure-pytest = "^2.15.3"
-locust = "^2.43.3"
+[tool.uv]
+default-groups = "all"
 
-[tool.poetry.group.dev.dependencies]
-pytest = "9.0.2"
+[tool.hatch.build.targets.sdist]
+include = ["src/rest_api_client"]
+
+[tool.hatch.build.targets.wheel]
+include = ["src/rest_api_client"]
+
+[tool.hatch.build.targets.wheel.sources]
+"src/rest_api_client" = "rest_api_client"
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
