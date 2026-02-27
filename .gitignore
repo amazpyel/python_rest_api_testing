@@ -7,9 +7,6 @@
 __pycache__/
 *.py[cod]
 
-# poetry local configuration
-poetry.toml
-
 # Allure
 allure-results/
 allure-reports/
