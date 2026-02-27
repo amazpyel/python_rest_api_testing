@@ -17,7 +17,8 @@ A comprehensive REST API testing framework demonstrating professional testing pr
 
 - **Python 3.14** - Latest Python version
 - **pytest** - Test framework
-- **Poetry** - Dependency management
+- **uv** - Dependency management
+- **Ruff** - Linting and formatting
 - **Docker & Docker Compose** - Containerization
 - **Allure** - Test reporting
 - **Locust** - Performance testing
@@ -35,7 +36,7 @@ Choose one of the following setups:
 
 ### Option 2: Local Python
 - Python 3.11+ (3.14 recommended)
-- [Poetry](https://python-poetry.org/docs/#installation)
+- [uv](https://docs.astral.sh/uv/getting-started/installation/)
 
 ## Installation
 
@@ -68,15 +69,10 @@ Get tokens from:
 
 2. Install dependencies:
 ```bash
-poetry install
+uv sync
 ```
 
-3. Activate virtual environment:
-```bash
-poetry shell
-```
-
-4. Configure environment variables (same as Docker setup)
+3. Configure environment variables (same as Docker setup)
 
 ## Running Tests
 
@@ -108,17 +104,17 @@ docker compose up performance
 
 **Run all tests:**
 ```bash
-poetry run pytest
+uv run pytest
 ```
 
 **Run with Allure results:**
 ```bash
-poetry run pytest --alluredir=allure-results
+uv run pytest --alluredir=allure-results
 ```
 
 **Run specific markers:**
 ```bash
-poetry run pytest -m smoke
+uv run pytest -m smoke
 ```
 
 ## Allure Reports
@@ -217,7 +213,8 @@ docker compose run test -m "not destructive"
 │       └── tests.yml              # CI/CD pipeline
 ├── docker-compose.yml             # Docker services configuration
 ├── Dockerfile                     # Test container image
-├── pyproject.toml                 # Poetry dependencies
+├── pyproject.toml                 # Project config & dependencies
+├── uv.lock                        # Dependency lockfile
 └── README.md                      # This file
 ```
 
