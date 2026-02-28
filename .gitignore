@@ -8,8 +8,8 @@ __pycache__/
 *.py[cod]
 
 # Allure
-allure-results/
-allure-reports/
+**/allure-results/
+**/allure-reports/
 .allure/
 
 # env file for docker
