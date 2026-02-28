@@ -3,6 +3,8 @@ import os
 import platform
 import sys
 from pathlib import Path
+
+
 def pytest_configure():
     logging.basicConfig(
         level=os.getenv("LOG_LEVEL", "WARNING").upper(),
