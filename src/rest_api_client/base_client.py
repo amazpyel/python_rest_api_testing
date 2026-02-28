@@ -17,7 +17,7 @@ class BaseRestApiClient:
         max_retries: int = 3,
         backoff_factor: float = 0.5,
     ):
-        timeout_value = timeout or float(os.getenv("API_TIMEOUT", 10.0))
+        timeout_value = timeout if timeout is not None else float(os.getenv("API_TIMEOUT", "10.0"))
         self._logger = logging.getLogger(self.__class__.__name__)
         self._client = httpx.Client(
             base_url=base_url,

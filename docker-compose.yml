@@ -27,7 +27,7 @@ services:
       GOREST_TOKEN: ${GOREST_TOKEN}
     command: >
       locust -f performance/locustfile.py
-      --host=https://gorest.co.in/public/v2
+      --host=${GOREST_BASE_URL:-https://gorest.co.in/public/v2}
 
   allure:
     image: frankescobar/allure-docker-service

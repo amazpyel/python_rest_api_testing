@@ -2,9 +2,12 @@ import os
 
 import allure
 import pytest
+from faker import Faker
 
 from rest_api_client.gorest_api.models import UserUpdateRequest
 from tests.factories.user_factory import UserFactory
+
+fake = Faker()
 
 
 @pytest.mark.end2end
@@ -33,10 +36,11 @@ def test_user_crud_workflow(gorest_client):
             assert retrieved.id == user_id, f"Expected id {user_id}, got {retrieved.id}"
 
         with allure.step("Update user name"):
-            update_payload = UserUpdateRequest(name="Updated OlekUser")
+            updated_name = fake.name()
+            update_payload = UserUpdateRequest(name=updated_name)
             updated = gorest_client.update_user(user_id, update_payload)
 
-            assert updated.name == "Updated OlekUser", f"Expected updated name, got {updated.name}"
+            assert updated.name == updated_name, f"Expected {updated_name!r}, got {updated.name!r}"
 
     finally:
         with allure.step("Cleanup: delete created user"):

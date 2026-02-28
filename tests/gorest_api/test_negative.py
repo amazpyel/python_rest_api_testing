@@ -4,7 +4,7 @@ import os
 import allure
 import pytest
 
-from rest_api_client.exceptions import AuthError, RestApiError
+from rest_api_client.exceptions import AuthError, NotFoundError, RestApiError
 from rest_api_client.gorest_api.client import GoRestClient
 from tests.factories.user_factory import UserFactory
 
@@ -45,7 +45,7 @@ def test_deleting_user_twice_raises_error(gorest_client):
         with allure.step("Delete user first time"):
             gorest_client.delete_user(user_id)
 
-        with allure.step("Delete user second time and expect failure"), pytest.raises(RestApiError):
+        with allure.step("Delete user second time and expect failure"), pytest.raises(NotFoundError):
             gorest_client.delete_user(user_id)
 
     finally:

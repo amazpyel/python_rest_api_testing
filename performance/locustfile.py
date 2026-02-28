@@ -1,4 +1,5 @@
 import os
+import random
 
 from locust import HttpUser, between, task
 
@@ -11,18 +12,32 @@ class GoRestUser(HttpUser):
         if not self.token:
             raise RuntimeError("GOREST_TOKEN is not set")
 
-    @task
-    def get_user(self):
-        headers = {"Authorization": f"Bearer {self.token}"}
+    def _headers(self):
+        return {"Authorization": f"Bearer {self.token}"}
 
+    @task(3)
+    def get_users_list(self):
         with self.client.get(
-            "/users/1",
-            headers=headers,
-            name="GET /users/{id}",
+            "/users",
+            headers=self._headers(),
+            name="GET /users",
             catch_response=True,
         ) as response:
             if response.status_code != 200:
                 response.failure(f"Unexpected status: {response.status_code}")
+            elif response.elapsed.total_seconds() > 0.5:
+                response.failure("SLA exceeded (500ms)")
 
+    @task(1)
+    def get_single_user(self):
+        user_id = random.randint(1, 5000)
+        with self.client.get(
+            f"/users/{user_id}",
+            headers=self._headers(),
+            name="GET /users/{id}",
+            catch_response=True,
+        ) as response:
+            if response.status_code not in (200, 404):
+                response.failure(f"Unexpected status: {response.status_code}")
             elif response.elapsed.total_seconds() > 0.5:
                 response.failure("SLA exceeded (500ms)")

@@ -21,9 +21,9 @@ class UserFactory:
         status: str = "active",
     ) -> UserCreateRequest:
         return UserCreateRequest(
-            name=name or fake.name(),
-            gender=gender or fake.random_element(elements=(Gender.MALE, Gender.FEMALE)),
-            email=email or fake.email(),
+            name=name if name is not None else fake.name(),
+            gender=gender if gender is not None else fake.random_element(elements=(Gender.MALE, Gender.FEMALE)),
+            email=email if email is not None else fake.email(),
             status=status,
         )
 

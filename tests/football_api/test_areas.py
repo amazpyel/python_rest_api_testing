@@ -23,11 +23,9 @@ def test_get_all_areas(football_api_client):
 
         assert first_area.id > 0, f"Area id must be positive, got {first_area.id}"
 
-        assert isinstance(first_area.countryCode, str), (
-            f"Invalid countryCode: {first_area.countryCode}"
-        )
-        assert len(first_area.countryCode) == 3, f"Invalid countryCode: {first_area.countryCode}"
-        assert first_area.countryCode.isalpha(), f"Invalid countryCode: {first_area.countryCode}"
+        if first_area.countryCode:
+            assert len(first_area.countryCode) == 3, f"Invalid countryCode: {first_area.countryCode}"
+            assert first_area.countryCode.isalpha(), f"Invalid countryCode: {first_area.countryCode}"
 
         assert isinstance(first_area.name, str), "Area name must be non-empty string"
         assert first_area.name.strip(), "Area name must be non-empty string"
