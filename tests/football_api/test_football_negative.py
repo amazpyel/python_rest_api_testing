@@ -1,7 +1,7 @@
 import allure
 import pytest
 
-from rest_api_client.exceptions import RestApiError
+from rest_api_client.exceptions import AuthError
 from rest_api_client.football_api.client import FootballApiClient
 
 
@@ -17,13 +17,6 @@ def test_invalid_football_api_token_returns_error(monkeypatch):
     with (
         allure.step("Call GET /areas and expect authorization failure"),
         FootballApiClient() as football_client,
-        pytest.raises(RestApiError) as exc_info,
+        pytest.raises(AuthError),
     ):
         football_client.get_areas()
-
-    with allure.step("Validate error message indicates auth failure"):
-        error_message = str(exc_info.value)
-
-        assert "401" in error_message or "403" in error_message, (
-            f"Unexpected error message: {error_message}"
-        )

@@ -4,7 +4,7 @@ import os
 import allure
 import pytest
 
-from rest_api_client.exceptions import RestApiError
+from rest_api_client.exceptions import AuthError, RestApiError
 from rest_api_client.gorest_api.client import GoRestClient
 from tests.factories.user_factory import UserFactory
 
@@ -21,15 +21,9 @@ def test_invalid_gorest_token_returns_error(monkeypatch):
     with (
         allure.step("Call GET /users/{id} and expect authorization failure"),
         GoRestClient() as gorest_client,
-        pytest.raises(RestApiError) as exc_info,
+        pytest.raises(AuthError),
     ):
         gorest_client.get_user(1)
-
-    with allure.step("Validate error indicates auth failure"):
-        error_message = str(exc_info.value)
-        assert "401" in error_message or "403" in error_message, (
-            f"Unexpected error message: {error_message}"
-        )
 
 
 @allure.feature("User Management")
