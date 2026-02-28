@@ -27,4 +27,3 @@ def test_invalid_football_api_token_returns_error(monkeypatch):
         assert "401" in error_message or "403" in error_message, (
             f"Unexpected error message: {error_message}"
         )
-

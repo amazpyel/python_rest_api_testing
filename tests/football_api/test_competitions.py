@@ -27,11 +27,13 @@ def test_get_all_competitions(football_api_client):
 
     with allure.step("Validate each competition has required fields"):
         for competition in response.competitions:
-            assert competition.id > 0, (
-                f"Competition id must be positive, got {competition.id}"
+            assert competition.id > 0, f"Competition id must be positive, got {competition.id}"
+            assert isinstance(competition.name, str), (
+                f"Competition name must be a non-empty string, got {competition.name!r}"
             )
-            assert isinstance(competition.name, str), f"Competition name must be a non-empty string, got {competition.name!r}"
-            assert competition.name.strip(), f"Competition name must be a non-empty string, got {competition.name!r}"
+            assert competition.name.strip(), (
+                f"Competition name must be a non-empty string, got {competition.name!r}"
+            )
             assert competition.type in VALID_COMPETITION_TYPES, (
                 f"Unexpected competition type: {competition.type!r}"
             )

@@ -27,7 +27,9 @@ class GoRestClient(BaseRestApiClient):
         return UserResponse.model_validate(response.json())
 
     def update_user(self, user_id: int, payload: UserUpdateRequest) -> UserResponse:
-        response = self._request(HttpMethod.PUT,f"/users/{user_id}", json=payload.model_dump(exclude_none=True))
+        response = self._request(
+            HttpMethod.PUT, f"/users/{user_id}", json=payload.model_dump(exclude_none=True)
+        )
         return UserResponse.model_validate(response.json())
 
     def delete_user(self, user_id: int):

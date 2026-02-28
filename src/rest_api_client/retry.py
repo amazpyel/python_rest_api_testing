@@ -15,14 +15,14 @@ def retry(func):
                 status = exc.response.status_code
 
                 if 500 <= status < 600 and attempt < self._max_retries:
-                    time.sleep(self._backoff_factor * (2 ** attempt))
+                    time.sleep(self._backoff_factor * (2**attempt))
                     continue
 
                 raise RestApiError(f"{status}: {exc.response.text}") from exc
 
             except (httpx.ConnectError, httpx.ReadError) as exc:
                 if attempt < self._max_retries:
-                    time.sleep(self._backoff_factor * (2 ** attempt))
+                    time.sleep(self._backoff_factor * (2**attempt))
                     continue
 
                 raise RestApiError(f"Request failed after retries: {exc}") from exc

@@ -13,9 +13,7 @@ class GoRestUser(HttpUser):
 
     @task
     def get_user(self):
-        headers = {
-            "Authorization": f"Bearer {self.token}"
-        }
+        headers = {"Authorization": f"Bearer {self.token}"}
 
         with self.client.get(
             "/users/1",
@@ -23,11 +21,8 @@ class GoRestUser(HttpUser):
             name="GET /users/{id}",
             catch_response=True,
         ) as response:
-
             if response.status_code != 200:
-                response.failure(
-                    f"Unexpected status: {response.status_code}"
-                )
+                response.failure(f"Unexpected status: {response.status_code}")
 
             elif response.elapsed.total_seconds() > 0.5:
                 response.failure("SLA exceeded (500ms)")

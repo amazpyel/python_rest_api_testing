@@ -15,7 +15,7 @@ class BaseRestApiClient:
         headers: dict | None = None,
         timeout: float | None = None,
         max_retries: int = 3,
-        backoff_factor: float = 0.5
+        backoff_factor: float = 0.5,
     ):
         timeout_value = timeout or float(os.getenv("API_TIMEOUT", 10.0))
         self._logger = logging.getLogger(self.__class__.__name__)
@@ -26,7 +26,7 @@ class BaseRestApiClient:
             event_hooks={
                 "request": [self._log_request],
                 "response": [self._log_response],
-            }
+            },
         )
 
         self._max_retries = max_retries
@@ -51,9 +51,7 @@ class BaseRestApiClient:
         # Store start time in request object
         request.extensions["start_time"] = time.perf_counter()
 
-        self._logger.info(
-            f"{request.method} {request.url}"
-        )
+        self._logger.info(f"{request.method} {request.url}")
 
     def _log_response(self, response: httpx.Response):
         start_time = response.request.extensions.get("start_time")
@@ -70,6 +68,5 @@ class BaseRestApiClient:
             )
         else:
             self._logger.info(
-                f"{response.request.method} {response.request.url} "
-                f"-> {response.status_code}"
+                f"{response.request.method} {response.request.url} -> {response.status_code}"
             )

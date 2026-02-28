@@ -31,14 +31,14 @@ def test_invalid_gorest_token_returns_error(monkeypatch):
             f"Unexpected error message: {error_message}"
         )
 
+
 @allure.feature("User Management")
 @allure.story("Delete user twice")
 @allure.severity(allure.severity_level.NORMAL)
 @pytest.mark.negative
 @pytest.mark.destructive
 @pytest.mark.skipif(
-    os.getenv("CI") == "true",
-    reason="GoRest blocks CI/CD environments (CloudFlare protection)"
+    os.getenv("CI") == "true", reason="GoRest blocks CI/CD environments (CloudFlare protection)"
 )
 def test_deleting_user_twice_raises_error(gorest_client):
 

@@ -11,6 +11,7 @@ class Area(BaseModel):
     parentAreaId: int | None = None
     parentArea: str | None = None
 
+
 class AreasResponse(BaseModel):
     count: int
     filters: dict[str, Any]
@@ -23,6 +24,7 @@ class CompetitionArea(BaseModel):
     code: str
     flag: str | None = None
 
+
 class Competition(BaseModel):
     id: int
     name: str
@@ -30,6 +32,7 @@ class Competition(BaseModel):
     type: str
     emblem: str | None = None
     area: CompetitionArea
+
 
 class CompetitionsResponse(BaseModel):
     count: int

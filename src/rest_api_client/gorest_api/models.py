@@ -1,4 +1,3 @@
-
 from pydantic import BaseModel, EmailStr
 
 
@@ -8,10 +7,12 @@ class UserCreateRequest(BaseModel):
     email: EmailStr
     status: str = "active"
 
+
 class UserUpdateRequest(BaseModel):
     name: str | None = None
     gender: str | None = None
     status: str | None = None
+
 
 class UserResponse(BaseModel):
     id: int

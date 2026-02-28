@@ -10,8 +10,7 @@ from tests.factories.user_factory import UserFactory
 @pytest.mark.end2end
 @pytest.mark.destructive
 @pytest.mark.skipif(
-    os.getenv("CI") == "true",
-    reason="GoRest blocks CI/CD environments (CloudFlare protection)"
+    os.getenv("CI") == "true", reason="GoRest blocks CI/CD environments (CloudFlare protection)"
 )
 @allure.feature("User Management")
 @allure.story("CRUD workflow")
@@ -31,17 +30,13 @@ def test_user_crud_workflow(gorest_client):
     try:
         with allure.step("Retrieve created user"):
             retrieved = gorest_client.get_user(user_id)
-            assert retrieved.id == user_id, (
-                f"Expected id {user_id}, got {retrieved.id}"
-            )
+            assert retrieved.id == user_id, f"Expected id {user_id}, got {retrieved.id}"
 
         with allure.step("Update user name"):
             update_payload = UserUpdateRequest(name="Updated OlekUser")
             updated = gorest_client.update_user(user_id, update_payload)
 
-            assert updated.name == "Updated OlekUser", (
-                f"Expected updated name, got {updated.name}"
-            )
+            assert updated.name == "Updated OlekUser", f"Expected updated name, got {updated.name}"
 
     finally:
         with allure.step("Cleanup: delete created user"):

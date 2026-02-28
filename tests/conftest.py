@@ -15,16 +15,19 @@ def football_api_client():
     with FootballApiClient() as client:
         yield client
 
+
 @pytest.fixture
 def gorest_client():
     with GoRestClient() as client:
         yield client
 
+
 def pytest_configure():
     logging.basicConfig(
         level=os.getenv("LOG_LEVEL", "WARNING").upper(),
-        format="%(asctime)s | %(levelname)s | %(name)s | %(message)s"
+        format="%(asctime)s | %(levelname)s | %(name)s | %(message)s",
     )
+
 
 def pytest_sessionstart(session):  # noqa: ARG001
     """
@@ -62,7 +65,7 @@ def pytest_sessionstart(session):  # noqa: ARG001
         "type": os.getenv("EXECUTOR_TYPE", "pytest"),
         "reportName": os.getenv("REPORT_NAME", "REST API Test Suite"),
         "buildName": os.getenv("BUILD_NAME", f"Build #{os.getenv('BUILD_NUMBER', '1')}"),
-        "buildUrl": os.getenv("BUILD_URL", "")
+        "buildUrl": os.getenv("BUILD_URL", ""),
     }
 
     with executor_file.open("w", encoding="utf-8") as f:
