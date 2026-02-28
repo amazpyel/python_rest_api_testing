@@ -1,1 +1,1 @@
-{"reportName":"REST API Test Suite","testRuns":[],"statistic":{"failed":0,"broken":1,"skipped":6,"passed":6,"unknown":0,"total":13},"time":{"start":1772313514374,"stop":1772313518083,"duration":3709,"minDuration":0,"maxDuration":601,"sumDuration":3546}}
+{"reportName":"REST API Test Suite","testRuns":[],"statistic":{"failed":0,"broken":1,"skipped":6,"passed":6,"unknown":0,"total":13},"time":{"start":1772314877193,"stop":1772314880924,"duration":3731,"minDuration":0,"maxDuration":766,"sumDuration":3568}}
