@@ -22,4 +22,4 @@ COPY . /app
 # Install project package itself
 RUN uv sync --frozen
 
-CMD ["uv", "run", "pytest", "-v"]
+CMD ["uv", "run", "pytest", "-v", "--alluredir=allure-results"]
