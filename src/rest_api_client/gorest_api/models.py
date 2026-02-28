@@ -1,4 +1,3 @@
-from typing import Optional
 
 from pydantic import BaseModel, EmailStr
 
@@ -10,9 +9,9 @@ class UserCreateRequest(BaseModel):
     status: str = "active"
 
 class UserUpdateRequest(BaseModel):
-    name: Optional[str] = None
-    gender: Optional[str] = None
-    status: Optional[str] = None
+    name: str | None = None
+    gender: str | None = None
+    status: str | None = None
 
 class UserResponse(BaseModel):
     id: int

@@ -14,10 +14,12 @@ def test_invalid_football_api_token_returns_error(monkeypatch):
     with allure.step("Override FOOTBALL_DATA_TOKEN with invalid value"):
         monkeypatch.setenv("FOOTBALL_DATA_TOKEN", "invalid_token")
 
-    with allure.step("Call GET /areas and expect authorization failure"):
-        with FootballApiClient() as football_client:
-            with pytest.raises(RestApiError) as exc_info:
-                football_client.get_areas()
+    with (
+        allure.step("Call GET /areas and expect authorization failure"),
+        FootballApiClient() as football_client,
+        pytest.raises(RestApiError) as exc_info,
+    ):
+        football_client.get_areas()
 
     with allure.step("Validate error message indicates auth failure"):
         error_message = str(exc_info.value)

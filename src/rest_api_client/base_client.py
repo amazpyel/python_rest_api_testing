@@ -4,8 +4,8 @@ import time
 
 import httpx
 
-from .retry import retry
 from .http import HttpMethod
+from .retry import retry
 
 
 class BaseRestApiClient:
@@ -40,7 +40,7 @@ class BaseRestApiClient:
 
     @retry
     def _request(self, method: HttpMethod, url: str, **kwargs):
-        response = self._client.request(method.value, url, **kwargs)
+        response = self._client.request(method, url, **kwargs)
         response.raise_for_status()
         return response
 

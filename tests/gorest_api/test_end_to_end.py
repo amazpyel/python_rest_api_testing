@@ -1,5 +1,6 @@
-import allure
 import os
+
+import allure
 import pytest
 
 from rest_api_client.gorest_api.models import UserUpdateRequest

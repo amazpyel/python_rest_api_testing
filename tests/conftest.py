@@ -26,7 +26,7 @@ def pytest_configure():
         format="%(asctime)s | %(levelname)s | %(name)s | %(message)s"
     )
 
-def pytest_sessionstart(session):
+def pytest_sessionstart(session):  # noqa: ARG001
     """
     Generate Allure environment metadata and executor files.
     """

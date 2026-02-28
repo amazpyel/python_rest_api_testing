@@ -1,7 +1,6 @@
 import allure
 import pytest
 
-
 KNOWN_COMPETITIONS = [
     pytest.param(2001, "UEFA Champions League", id="champions-league"),
     pytest.param(2021, "Premier League", id="premier-league"),
@@ -31,9 +30,8 @@ def test_get_all_competitions(football_api_client):
             assert competition.id > 0, (
                 f"Competition id must be positive, got {competition.id}"
             )
-            assert isinstance(competition.name, str) and competition.name.strip(), (
-                f"Competition name must be a non-empty string, got {competition.name!r}"
-            )
+            assert isinstance(competition.name, str), f"Competition name must be a non-empty string, got {competition.name!r}"
+            assert competition.name.strip(), f"Competition name must be a non-empty string, got {competition.name!r}"
             assert competition.type in VALID_COMPETITION_TYPES, (
                 f"Unexpected competition type: {competition.type!r}"
             )
@@ -43,7 +41,7 @@ def test_get_all_competitions(football_api_client):
 
 
 @pytest.mark.smoke
-@pytest.mark.parametrize("competition_id,expected_name", KNOWN_COMPETITIONS)
+@pytest.mark.parametrize(("competition_id", "expected_name"), KNOWN_COMPETITIONS)
 @allure.feature("Competitions")
 @allure.story("Retrieve competition by ID")
 @allure.severity(allure.severity_level.NORMAL)

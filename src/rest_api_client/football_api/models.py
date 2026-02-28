@@ -1,4 +1,4 @@
-from typing import Optional, List, Dict, Any
+from typing import Any
 
 from pydantic import BaseModel
 
@@ -7,31 +7,31 @@ class Area(BaseModel):
     id: int
     name: str
     countryCode: str
-    flag: Optional[str] = None
-    parentAreaId: Optional[int] = None
-    parentArea: Optional[str] = None
+    flag: str | None = None
+    parentAreaId: int | None = None
+    parentArea: str | None = None
 
 class AreasResponse(BaseModel):
     count: int
-    filters: Dict[str, Any]
-    areas: List[Area]
+    filters: dict[str, Any]
+    areas: list[Area]
 
 
 class CompetitionArea(BaseModel):
     id: int
     name: str
     code: str
-    flag: Optional[str] = None
+    flag: str | None = None
 
 class Competition(BaseModel):
     id: int
     name: str
-    code: Optional[str] = None
+    code: str | None = None
     type: str
-    emblem: Optional[str] = None
+    emblem: str | None = None
     area: CompetitionArea
 
 class CompetitionsResponse(BaseModel):
     count: int
-    filters: Dict[str, Any]
-    competitions: List[Competition]
+    filters: dict[str, Any]
+    competitions: list[Competition]

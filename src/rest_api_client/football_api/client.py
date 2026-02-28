@@ -1,4 +1,5 @@
 import os
+
 from rest_api_client.base_client import BaseRestApiClient
 from rest_api_client.football_api.models import AreasResponse, Competition, CompetitionsResponse
 from rest_api_client.http import HttpMethod
